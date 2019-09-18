@@ -1,0 +1,13 @@
+
+
+
+
+
+
+
+
+
+logging:
+  level: debug
+  path: /var/log
+

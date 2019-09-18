@@ -9,22 +9,34 @@
     <groupId>com.rafagao</groupId>
     <artifactId>dbook</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>dbook-db</module>
-    </modules>
-    <packaging>pom</packaging>
-
     <name>dbook</name>
     <description>Old book delivery station</description>
+    <packaging>pom</packaging>
 
+    <!--子模块-->
+    <modules>
+        <module>dbook-db</module>
+        <module>dbook-admin</module>
+        <module>dbook-common</module>
+    </modules>
 
 
     <!--常量-->
     <properties>
         <java.version>11</java.version>
-        <spring-boot-starter-web.version>2.1.3.RELEASE</spring-boot-starter-web.version>
-        <mybatis-spring-boot-starter.version>2.0.1</mybatis-spring-boot-starter.version>
+        <spring-boot-starter-web.version>2.1.7.RELEASE</spring-boot-starter-web.version>
+        <spring-boot-starter-security.version>2.1.7.RELEASE</spring-boot-starter-security.version>
+        <spring-boot-dependencies.version>2.1.7.RELEASE</spring-boot-dependencies.version>
+        <spring-boot-starter-test.version>2.1.7.RELEASE</spring-boot-starter-test.version>
+        <mybatis-spring-boot-starter.version>2.1.0</mybatis-spring-boot-starter.version>
         <mysql-connector-java.version>8.0.15</mysql-connector-java.version>
+        <mybatis-generator.version>1.3.7</mybatis-generator.version>
+        <mybatis-generator-maven-plugin.version>1.3.7</mybatis-generator-maven-plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <druid.version>1.1.16</druid.version>
+        <druid-spring-boot-starter.version>1.1.2</druid-spring-boot-starter.version>
+        <jjwt.version>0.10.7</jjwt.version>
     </properties>
 
     <!--项目依赖管理-->
@@ -33,17 +45,21 @@
         <dependencies>
 
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-                <version>${spring-boot-starter-web.version}}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis-spring-boot-starter.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot-starter-web.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+                <version>${spring-boot-starter-security.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>mysql</groupId>
@@ -51,11 +67,106 @@
                 <version>${mysql-connector-java.version}</version>
             </dependency>
 
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator</artifactId>
+                <version>${mybatis-generator.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid-spring-boot-starter.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot-starter-test.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!--JWT支持-->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jjwt.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jjwt.version}</version>
+                <scope>runtime</scope>
+            </dependency>
 
         </dependencies>
+
     </dependencyManagement>
 
+    <!--    <dependencies>-->
+    <!--        <dependency>-->
+    <!--            <groupId>org.springframework.boot</groupId>-->
+    <!--            <artifactId>spring-boot-starter-test</artifactId>-->
+    <!--        </dependency>-->
+    <!--    </dependencies>-->
 
+
+    <build>
+        <!--插件管理-->
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.mybatis.generator</groupId>
+                    <artifactId>mybatis-generator-maven-plugin</artifactId>
+                    <version>${mybatis-generator-maven-plugin.version}</version>
+
+
+                    <dependencies>
+
+                        <dependency>
+                            <groupId>org.mybatis.generator</groupId>
+                            <artifactId>mybatis-generator</artifactId>
+                            <version>${mybatis-generator.version}</version>
+                            <type>pom</type>
+                        </dependency>
+
+                        <dependency>
+                            <groupId>mysql</groupId>
+                            <artifactId>mysql-connector-java</artifactId>
+                            <version>${mysql-connector-java.version}</version>
+                        </dependency>
+
+
+                    </dependencies>
+
+
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
 
 </project>

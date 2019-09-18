@@ -1,0 +1,17 @@
+spring:
+  profiles:
+    active: dev
+  messages:
+    encoding: UTF-8
+
+
+server:
+  port: 8083
+
+
+jwt:
+  secret: mySecret
+  expiration: 604800
+
+
+
