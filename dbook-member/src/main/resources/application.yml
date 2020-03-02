@@ -1,0 +1,39 @@
+spring:
+  profiles:
+    active: dev
+  redis:
+    host: 39.105.229.160
+    port: 6379
+    lettuce:
+      pool:
+        max-wait: -1
+        max-idle: 8
+        min-idle: 1
+    password: 10086
+
+#logging:
+#  level:
+#    root: debug
+
+
+
+server:
+  port: 8080
+  servlet:
+    context-path: /user
+
+
+
+mybatis:
+  mapper-locations:
+    - classpath:dao/*.xml
+    - classpath*:com/**/mapper/*.xml
+
+jwt:
+  JWTHeader: Authorization
+
+#dbook:
+#  member:
+#    security:
+#      loginPage: /member/login
+

@@ -1,11 +1,13 @@
 package com.rafagao.dbook.common.api;
 
+import lombok.Data;
+
 /**
  * 通用返回对象
  * @author rafa gao
  */
 
-
+@Data
 public class CommonResult<T> {
 
     //返回的数据
@@ -22,6 +24,7 @@ public class CommonResult<T> {
         this.message = message;
         this.code = code;
     }
+
 
     /**
      * 携带默认Message的成功返回结果
@@ -81,8 +84,17 @@ public class CommonResult<T> {
         return common(data,message,ResultCode.VALIDATE_FAILED);
     }
 
+    public static <T> CommonResult<T> unauthorized(T data,String message){
+        return common(data,message,ResultCode.UNAUTHORIZED);
+    }
+    public static <T> CommonResult<T> unauthorized(T data){
+        return common(data,null,ResultCode.UNAUTHORIZED);
+    }
+
+
+
     /**
-     * 携带自定义Message的成功返回结果
+     * 携带自定义Message的结果
      *
      * @param data 返回的数据
      * @return 返回的结果
@@ -94,5 +106,11 @@ public class CommonResult<T> {
             return new CommonResult<>(data,cusMessage,errorCode.getCode());
         }
     }
+
+    public static <T> CommonResult<T> common(T data,ErrorCode errorCode){
+       return common(data,null,errorCode);
+    }
+
+
 
 }

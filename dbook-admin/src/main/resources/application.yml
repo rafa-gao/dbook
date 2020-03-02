@@ -1,17 +1,22 @@
 spring:
   profiles:
     active: dev
-  messages:
-    encoding: UTF-8
+
 
 
 server:
-  port: 8083
+  port: 8080
+  servlet:
+    context-path: /admin
+
+
+mybatis:
+  mapper-locations:
+    - classpath:dao/*.xml
+    - classpath*:com/**/mapper/*.xml
 
 
 jwt:
-  secret: mySecret
-  expiration: 604800
-
+  JWTHeader: Authorization
 
 

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rafagao.dbook.dao.DbookProductMapper">
+  <resultMap id="BaseResultMap" type="com.rafagao.dbook.domain.DbookProduct">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="pro_price" jdbcType="DECIMAL" property="proPrice" />
+    <result column="sale" jdbcType="INTEGER" property="sale" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
+    <result column="is_ship" jdbcType="BIT" property="isShip" />
+    <result column="free_ship" jdbcType="DECIMAL" property="freeShip" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="publish_status" jdbcType="BIT" property="publishStatus" />
+    <result column="verify_status" jdbcType="INTEGER" property="verifyStatus" />
+    <result column="classification" jdbcType="INTEGER" property="classification" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.rafagao.dbook.domain.DbookProduct">
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `name`, user_id, price, pro_price, sale, stock, is_ship, free_ship, image, publish_status, 
+    verify_status, classification, sort
+  </sql>
+  <sql id="Blob_Column_List">
+    description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dbook_product
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectDbookProductByClassification" resultType="com.rafagao.dbook.domain.DbookProduct">
+    select
+    <include refid="Base_Column_List" />
+    from dbook_product
+    where classification=#{classification,jdbcType=INTEGER}
+    limit #{page},#{size}
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from dbook_product
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.rafagao.dbook.domain.DbookProduct" useGeneratedKeys="true">
+    insert into dbook_product (`name`, user_id, price, 
+      pro_price, sale, stock, 
+      is_ship, free_ship, image, 
+      publish_status, verify_status, classification, 
+      sort, description)
+    values (#{name,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, #{price,jdbcType=DECIMAL}, 
+      #{proPrice,jdbcType=DECIMAL}, #{sale,jdbcType=INTEGER}, #{stock,jdbcType=INTEGER}, 
+      #{isShip,jdbcType=BIT}, #{freeShip,jdbcType=DECIMAL}, #{image,jdbcType=VARCHAR}, 
+      #{publishStatus,jdbcType=BIT}, #{verifyStatus,jdbcType=INTEGER}, #{classification,jdbcType=INTEGER}, 
+      #{sort,jdbcType=INTEGER}, #{description,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.rafagao.dbook.domain.DbookProduct" useGeneratedKeys="true">
+    insert into dbook_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="proPrice != null">
+        pro_price,
+      </if>
+      <if test="sale != null">
+        sale,
+      </if>
+      <if test="stock != null">
+        stock,
+      </if>
+      <if test="isShip != null">
+        is_ship,
+      </if>
+      <if test="freeShip != null">
+        free_ship,
+      </if>
+      <if test="image != null">
+        image,
+      </if>
+      <if test="publishStatus != null">
+        publish_status,
+      </if>
+      <if test="verifyStatus != null">
+        verify_status,
+      </if>
+      <if test="classification != null">
+        classification,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="proPrice != null">
+        #{proPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="sale != null">
+        #{sale,jdbcType=INTEGER},
+      </if>
+      <if test="stock != null">
+        #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="isShip != null">
+        #{isShip,jdbcType=BIT},
+      </if>
+      <if test="freeShip != null">
+        #{freeShip,jdbcType=DECIMAL},
+      </if>
+      <if test="image != null">
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="publishStatus != null">
+        #{publishStatus,jdbcType=BIT},
+      </if>
+      <if test="verifyStatus != null">
+        #{verifyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="classification != null">
+        #{classification,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rafagao.dbook.domain.DbookProduct">
+    update dbook_product
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="proPrice != null">
+        pro_price = #{proPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="sale != null">
+        sale = #{sale,jdbcType=INTEGER},
+      </if>
+      <if test="stock != null">
+        stock = #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="isShip != null">
+        is_ship = #{isShip,jdbcType=BIT},
+      </if>
+      <if test="freeShip != null">
+        free_ship = #{freeShip,jdbcType=DECIMAL},
+      </if>
+      <if test="image != null">
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="publishStatus != null">
+        publish_status = #{publishStatus,jdbcType=BIT},
+      </if>
+      <if test="verifyStatus != null">
+        verify_status = #{verifyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="classification != null">
+        classification = #{classification,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.rafagao.dbook.domain.DbookProduct">
+    update dbook_product
+    set `name` = #{name,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      price = #{price,jdbcType=DECIMAL},
+      pro_price = #{proPrice,jdbcType=DECIMAL},
+      sale = #{sale,jdbcType=INTEGER},
+      stock = #{stock,jdbcType=INTEGER},
+      is_ship = #{isShip,jdbcType=BIT},
+      free_ship = #{freeShip,jdbcType=DECIMAL},
+      image = #{image,jdbcType=VARCHAR},
+      publish_status = #{publishStatus,jdbcType=BIT},
+      verify_status = #{verifyStatus,jdbcType=INTEGER},
+      classification = #{classification,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      description = #{description,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rafagao.dbook.domain.DbookProduct">
+    update dbook_product
+    set `name` = #{name,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      price = #{price,jdbcType=DECIMAL},
+      pro_price = #{proPrice,jdbcType=DECIMAL},
+      sale = #{sale,jdbcType=INTEGER},
+      stock = #{stock,jdbcType=INTEGER},
+      is_ship = #{isShip,jdbcType=BIT},
+      free_ship = #{freeShip,jdbcType=DECIMAL},
+      image = #{image,jdbcType=VARCHAR},
+      publish_status = #{publishStatus,jdbcType=BIT},
+      verify_status = #{verifyStatus,jdbcType=INTEGER},
+      classification = #{classification,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

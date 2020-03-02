@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>登录</title>
+</head>
+<body>
+	<h2>标准登录页面</h2>
+	<h3>表单登录</h3>
+	<form  method="post">
+		<table>
+<!--			<tr>-->
+<!--				<td>用户名:</td> -->
+<!--				<td><input type="text" name="username"></td>-->
+<!--			</tr>-->
+<!--			<tr>-->
+<!--				<td>密码:</td>-->
+<!--				<td><input type="password" name="password"></td>-->
+<!--			</tr>-->
+
+			<form id="formDemo">
+				<p>搜索:  <input  name="username" type="text"/> </p>
+			</form>
+
+			<input type="button" value="提交" id="submit">
+<!--			<tr>-->
+<!--				<td colspan='2'><input name="remember-me" type="checkbox" value="true" />记住我</td>-->
+<!--			</tr>-->
+<!--			<tr>-->
+<!--				<td colspan="2"><button type="submit">登录</button></td>-->
+<!--			</tr>-->
+		</table>
+
+
+
+
+	</form>
+
+<!--代码块 id="inde"-->
+
+
+
+</body>
+
+<script>
+
+	$("#submit").click(function ()
+	{
+		var json=$("#formDemo").serializeJSON();
+		var jsonString = JSON.stringify(json);;
+
+		$.ajax({
+					contentType: "application/json; charset=utf-8",
+
+					type:"post",
+					url:"/additem",
+					data:jsonString,
+					success:function(data){
+
+					},
+					error:function(e){
+						alert("error!!!");
+					},
+				}
+		)
+	});
+</script>
+</html>
