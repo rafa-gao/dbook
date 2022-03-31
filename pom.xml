@@ -33,7 +33,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <spring-boot-starter-web.version>2.1.7.RELEASE</spring-boot-starter-web.version>
+        <spring-boot-starter-web.version>2.5.12</spring-boot-starter-web.version>
         <spring-boot-starter-security.version>2.1.7.RELEASE</spring-boot-starter-security.version>
         <spring-boot-dependencies.version>2.1.7.RELEASE</spring-boot-dependencies.version>
         <spring-boot-starter-test.version>2.1.7.RELEASE</spring-boot-starter-test.version>
